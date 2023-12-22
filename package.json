@@ -13,7 +13,8 @@
     "build": "tsc",
     "clean": "rm -rf dist",
     "prebuildpackage": "npm run clean && npm run build && node dist/setup-package.js",
-    "buildpackage": "cd dist && npm pack"
+    "buildpackage": "cd dist && npm pack",
+    "postbuildpackage": "npm publish"
   },
   "repository": {
     "type": "git",
