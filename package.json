@@ -1,0 +1,37 @@
+{
+  "name": "@ez-budgets/karma-test-utils",
+  "version": "1.0.0",
+  "description": "Karma unit testing helpers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DuncanMcPherson/karma-test-utils.git"
+  },
+  "author": "ez-budgets",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DuncanMcPherson/karma-test-utils/issues"
+  },
+  "homepage": "https://github.com/DuncanMcPherson/karma-test-utils#readme",
+  "dependencies": {
+    "jasmine-core": "^5.1.1",
+    "karma": "^6.4.2",
+    "karma-jasmine": "^5.1.0",
+    "lodash-es": "^4.17.21",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@types/chance": "^1.1.6",
+    "@types/jasmine": "^5.1.4",
+    "@types/lodash-es": "^4.17.12",
+    "chance": "^1.1.11",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  }
+}
