@@ -1,7 +1,4 @@
-function sum(...args: number[]): number {
-	let res = 0;
-	args.forEach((num) => {
-		res += num;
-	});
-	return res;
-}
+export { IMockClassOptions } from './autoMocker'
+// export * from './autoMockerPlus';
+// export * from './read-observable-synchronously';
+// export * from './test-subscription-counter';
