@@ -1,0 +1,4 @@
+*.map
+*.spec.8
+setup-package.*
+version.txt
