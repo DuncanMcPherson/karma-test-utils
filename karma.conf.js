@@ -5,20 +5,41 @@ module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-junit-reporter'),
+      require('karma-coverage')
+    ],
     files: [
       '**/*.spec.ts'
     ],
+    jasmineHtmlReporter: {
+      suppressAll: true
+    },
     exclude: [
     ],
     preprocessors: {
     },
-    reporters: ['progress'],
+    reporters: ['progress', 'kjhtml', 'junit', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    concurrency: Infinity
+    concurrency: Infinity,
+    junitReporter: {
+      outputDir: 'test-results',
+      useBrowserName: false
+    },
+    coverageReporter: {
+      dir: require('path').join(__dirname, './coverage'),
+      subdir: '.',
+      reporters: [
+        { type: 'lcov' }
+      ]
+    }
   })
 }
