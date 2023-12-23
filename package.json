@@ -9,11 +9,11 @@
     "/dist/*"
   ],
   "scripts": {
-    "test": "karma start --single-run --no-progress --browsers=ChromeHeadless",
     "build": "tsc",
     "clean": "rm -rf dist",
     "prebuildpackage": "npm run clean && npm run build && node dist/setup-package.js",
-    "buildpackage": "cd dist && npm pack"
+    "buildpackage": "cd dist && npm pack",
+    "postbuildpackage": "npm publish"
   },
   "repository": {
     "type": "git",
@@ -33,16 +33,10 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@types/chance": "^1.1.6",
     "@types/jasmine": "^5.1.4",
     "@types/lodash-es": "^4.17.12",
-    "chance": "^1.1.11",
-    "karma-chrome-launcher": "^3.2.0",
-    "karma-coverage": "^2.2.1",
-    "karma-jasmine-html-reporter": "^2.1.0",
-    "karma-junit-reporter": "^2.0.1",
+    "karma-typescript": "^5.5.4",
     "ts-node": "^10.9.2",
-    "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   }
 }
