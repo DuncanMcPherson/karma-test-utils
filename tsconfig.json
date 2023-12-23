@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "ES2022",
-		"module": "ES2022",
+		"module": "NodeNext",
 		"types": ["node", "jasmine"],
 		"outDir": "dist",
 		"esModuleInterop": true,
