@@ -1,0 +1,26 @@
+{
+  "name": "@ez-budgets/karma-test-utils",
+  "version": "1.0.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duncanmcpherson/karma-test-utils.git"
+  },
+  "author": "ez-budgets",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/duncanmcpherson/karma-test-utils/issues"
+  },
+  "homepage": "https://github.com/duncanmcpherson/karma-test-utils#readme",
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
