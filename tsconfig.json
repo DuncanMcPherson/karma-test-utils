@@ -1,14 +1,13 @@
 {
 	"compilerOptions": {
-		"target": "ES2022",
-		"module": "NodeNext",
+		"target": "ES2016",
+		"module": "CommonJS",
 		"types": ["node", "jasmine"],
 		"outDir": "dist",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": false,
 		"skipLibCheck": true,
-		"moduleResolution": "NodeNext"
 	},
 	"include": [
 		"src/**/*"
