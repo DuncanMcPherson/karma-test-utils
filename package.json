@@ -1,10 +1,10 @@
 {
   "name": "@ez-budgets/karma-test-utils",
-  "version": "1.0.4",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -17,10 +17,16 @@
   },
   "homepage": "https://github.com/duncanmcpherson/karma-test-utils#readme",
   "devDependencies": {
-    "ts-loader": "^9.5.1",
-    "typescript": "^5.3.3",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "@types/jasmine": "^5.1.4",
+    "@types/ejs": "^3.1.5",
+    "ejs": "^3.1.9",
+    "istanbul": "^0.4.5",
+    "jasmine-reporters": "^2.5.2",
+    "jasmine-spec-reporter": "^7.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "jasmine": "^5.1.0"
   }
 }
