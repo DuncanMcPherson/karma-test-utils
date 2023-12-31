@@ -1,0 +1,4 @@
+#!/bin/sh
+
+node src/update-version.cjs
+git add .
