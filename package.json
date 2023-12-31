@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
     "jasmine-reporters": "^2.5.2",
     "jasmine-spec-reporter": "^7.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "husky": "^8.0.0"
   },
   "dependencies": {
     "jasmine": "^5.1.0"
