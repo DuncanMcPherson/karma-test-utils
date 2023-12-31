@@ -1,17 +1,18 @@
 {
   "name": "@ez-budgets/karma-test-utils",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "",
   "main": "dist/index.js",
+  "files": [
+    "./**/*"
+  ],
   "scripts": {
     "test": "jasmine --config=spec/support/jasmine-tests.js",
     "posttest": "istanbul cover --include-all-sources spec/support/istanbul.js && istanbul check-coverage",
     "prepare": "husky install",
-    "prepublish": "npm pack",
-    "prepack": "npm run setup-package",
-    "setup-package": "node dist/setup-package.js",
+    "build": "tsc",
     "presetup-package": "npm run build",
-    "build": "tsc"
+    "setup-package": "node dist/setup-package.js"
   },
   "repository": {
     "type": "git",

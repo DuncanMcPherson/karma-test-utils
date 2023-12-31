@@ -1,3 +1,4 @@
 *.map
 *.spec.*
 setup-package.*
+update-version.*

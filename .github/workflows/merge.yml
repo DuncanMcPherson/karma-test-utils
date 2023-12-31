@@ -21,4 +21,6 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
-      - run: npm publish
+      - run: npm run setup-package
+      - run: cd dist
+      - run: npm pack && npm publish
