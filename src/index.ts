@@ -1,0 +1,1 @@
+export { IMockClassOptions } from "./autoMocker";
