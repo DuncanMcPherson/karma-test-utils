@@ -4,3 +4,4 @@ dist/
 **/*.tgz
 test-results/
 coverage/
+build-test/

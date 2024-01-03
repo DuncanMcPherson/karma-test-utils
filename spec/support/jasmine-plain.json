@@ -1,0 +1,10 @@
+{
+	"spec_dir": "build-test",
+	"spec_files": [
+		"**/*[sS]pec.*js"
+	],
+	"env": {
+		"stopSpecOnExpectationFailure": false,
+		"random": true
+	}
+}

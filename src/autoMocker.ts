@@ -1,8 +1,8 @@
 // noinspection JSValidateJSDoc
 
-import isEmpty from "lodash-es/isEmpty";
-import uniq from "lodash-es/uniq";
-import { Accessor, Constructor } from "./@types";
+import isEmpty from "lodash/isEmpty";
+import uniq from "lodash/uniq";
+import { Accessor, Constructor } from "@types-local";
 
 /**
  * Represents the data structure for member data of a given type.
@@ -165,7 +165,7 @@ export class AutoMocker {
 			spy.and.callFake(fakeFunction);
 			return;
 		}
-		this.throwNotASpyError(spyName);
+		this.throwNotASpyError('withCallFake', spyName);
 	}
 
 	/**
@@ -190,7 +190,7 @@ export class AutoMocker {
 				: defaultReturn
 			)
 		}
-		this.throwNotASpyError(spyName)
+		this.throwNotASpyError('withFirstArgMappedReturn', spyName)
 	}
 
 	/**
@@ -206,7 +206,7 @@ export class AutoMocker {
 			spy.and.callThrough();
 			return;
 		}
-		this.throwNotASpyError(spyName);
+		this.throwNotASpyError('withCallThrough', spyName);
 	}
 
 	/**
@@ -223,7 +223,7 @@ export class AutoMocker {
 			spy.and.returnValue(returnValue);
 			return;
 		}
-		this.throwNotASpyError(spyName);
+		this.throwNotASpyError('withReturnValue', spyName);
 	}
 
 	/**
@@ -242,7 +242,7 @@ export class AutoMocker {
 		spyName?: string
 	): void {
 		if (!this.isSpyLike(spy)) {
-			this.throwNotASpyError(spyName);
+			this.throwNotASpyError('withReturnForArguments', spyName);
 		}
 		spy.withArgs(...args).and.returnValue(returnValue);
 	}
@@ -265,7 +265,7 @@ export class AutoMocker {
 			return;
 		}
 
-		this.throwNotASpyError(spyName);
+		this.throwNotASpyError('withReturnValues', spyName);
 	}
 
 	/**
@@ -280,7 +280,7 @@ export class AutoMocker {
 			return;
 		}
 
-		this.throwNotASpyError(spyName);
+		this.throwNotASpyError('withThrows', spyName);
 	}
 
 	/**
@@ -296,7 +296,7 @@ export class AutoMocker {
 			return;
 		}
 
-		this.throwNotASpyError(spyName);
+		this.throwNotASpyError('resetSpy', spyName);
 	}
 
 	/**
@@ -430,7 +430,7 @@ export class AutoMocker {
 			return spy.calls.argsFor(callIndex) as Parameters<TFunction>;
 		}
 
-		this.throwNotASpyError(spyName);
+		this.throwNotASpyError('getCallArgs', spyName);
 	}
 
 	/**
@@ -445,7 +445,7 @@ export class AutoMocker {
 		spyName?: string
 	): number {
 		if (!this.isSpyLike(spy)) {
-			this.throwNotASpyError(spyName);
+			this.throwNotASpyError('getCallCount', spyName);
 		}
 
 		return spy.calls.all().length;
@@ -700,15 +700,16 @@ export class AutoMocker {
 	}
 
 	/**
-	 * Throws an error if the provided spy is not an actual spy.
+	 * Throws an error indicating that the provided spy is not an actual spy.
 	 *
-	 * @param {string} spyName - The name of the spy. Default value is "[spyName not provided]" if not provided.
+	 * @param {string} caller - The name of the calling function or component.
+	 * @param {string} [spyName="[spyName not provided]"] - The name of the spy.
+	 *
 	 * @protected
-	 * @throws {Error} - Throws an error with the message "{caller name}: Provided spy {spyName} is not an actual spy."
-	 * @returns {never} - This function does not return any value.
+	 * @returns {never} - This function does not return a value.
 	 */
-	protected throwNotASpyError(spyName: string = "[spyName not provided]"): never {
-		throw new Error(`${this.throwNotASpyError.caller.name}: Provided spy ${spyName} is not an actual spy.`)
+	protected throwNotASpyError(caller: string, spyName: string = "[spyName not provided]"): never {
+		throw new Error(`${caller}: Provided spy ${spyName} is not an actual spy.`)
 	}
 
 	/**
