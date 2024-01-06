@@ -1,7 +1,7 @@
 {
-	"spec_dir": "spec",
+	"spec_dir": "build-test",
 	"spec_files": [
-		"**/*[sS]pec.ts"
+		"**/*[sS]pec.js"
 	],
 	"env": {
 		"stopSpecOnExpectationFailure": false,
