@@ -1,18 +1,19 @@
 {
   "name": "@ez-budgets/karma-test-utils",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "",
   "main": "dist/index.js",
   "files": [
     "./**/*"
   ],
   "scripts": {
-    "pretest": "tsc --project tsconfig.spec.json",
+    "pretest": "npm run build:test",
     "test": "node spec/support/jasmine-tests.js",
-    "posttest": "npm run cover",
-    "cover": "istanbul cover spec/support/istanbul.js --exclude dist/*,spec/**/* && istanbul check-coverage",
+    "precover": "npm run build:test",
+    "cover": "istanbul cover spec/support/istanbul.js --exclude dist/**/*,spec/**/* && istanbul check-coverage",
     "prepare": "husky install",
     "build": "tsc",
+    "build:test": "tsc --project tsconfig.spec.json",
     "presetup-package": "npm run build",
     "setup-package": "node dist/setup-package.js"
   },
