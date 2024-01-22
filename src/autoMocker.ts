@@ -543,14 +543,14 @@ export class AutoMocker {
 	 * @param {number} depth - The current depth of recursion.
 	 * @param {number} maxDepth - The maximum depth of recursion.
 	 * @private
-	 * @returns {void}
+	 * @returns {T[keyof T]}
 	 */
 	private mockObject<T extends {}>(
 		objectName: string,
 		objectToMock: T,
 		depth: number,
 		maxDepth: number
-	): void {
+	): T {
 		/* istanbul ignore if: will need to revisit this */
 		if (this.isFunction(objectToMock)) {
 			objectToMock = (jasmine.createSpy("fn", objectToMock as unknown as jasmine.Func).and.callThrough() as unknown as T);
@@ -567,7 +567,7 @@ export class AutoMocker {
 						key,
 						depth++,
 						maxDepth
-					)
+					);
 				}
 			} catch (e) {
 				/* istanbul ignore next */
@@ -575,7 +575,8 @@ export class AutoMocker {
 					`Unable to mock ${objectName}.${key} with preexisting value of ${objectToMock[key]}`
 				)
 			}
-		})
+		});
+		return objectToMock;
 	}
 
 	/**
@@ -634,7 +635,7 @@ export class AutoMocker {
 	 * @param {keyof T} key - The key of the property to mock.
 	 * @param {number} depth - The current depth of recursion.
 	 * @param {number} maxDepth - The maximum depth of recursion.
-	 * @returns {any} - The mocked value.
+	 * @returns {T[keyof T & string]} - The mocked value.
 	 * @private
 	 */
 	private mockValue<T>(
@@ -643,36 +644,43 @@ export class AutoMocker {
 		key: keyof T,
 		depth: number,
 		maxDepth: number
-	): any {
+	): T[keyof T & string] {
 		const value = objectToMock[key];
 
 		if (this.isUndefined(value) || value === null) {
+			// @ts-ignore
 			return value;
 		}
 
 		if (Array.isArray(value)) {
+			// @ts-ignore
 			return depth < maxDepth
 				? value.map((item, i) =>
 					this.mockValue(`${objectName}[${i}]`, value, i as any, depth++, maxDepth)
 				) : value;
 		}
 		if (this.isFunction(value)) {
+			// @ts-ignore
 			return this.isSpyLike(value)
 				? value
 				: spyOn(objectToMock, key as T[keyof T] extends Function ? keyof T : never)
 		}
 		if (this.isObject(value)) {
+			// @ts-ignore
 			return depth < maxDepth
-				? this.mockObject(`${objectName}.${String(key)}`, value, depth++, maxDepth)
+				? this.mockObject(`${objectName}.${String(key)}`, value, ++depth, maxDepth)
 				: value;
 		}
 		if (this.isString(value)) {
+			// @ts-ignore
 			return `${objectName}.${String(key)}` + this.generateNumber().toString();
 		}
 		if (this.isDate(value)) {
+			// @ts-ignore
 			return new Date(2000, 1, 1, 1, 1, 1, 1);
 		}
 		if (this.isNumber(value)) {
+			// @ts-ignore
 			return this.generateNumber();
 		}
 		return value;
@@ -747,7 +755,7 @@ export class AutoMocker {
 	 * @private
 	 */
 	private isObject(value: any): value is Object {
-		return value !== null && typeof value === 'object';
+	 	return value !== null && typeof value === 'object';
 	}
 
 	/**

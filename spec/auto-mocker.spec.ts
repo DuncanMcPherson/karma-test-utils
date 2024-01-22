@@ -82,12 +82,12 @@ describe("AutoMocker", () => {
 		});
 
 		// TODO: need to understand why this doesn't work
-		xit("should mock a function", () => {
-			let fn = () => 123;
-			autoMocker.mock("fn", fn);
-			console.log(fn)
-			expect((fn as jasmine.Spy).calls).toBeDefined();
-		});
+		// xit("should mock a function", () => {
+		// 	let fn = () => 123;
+		// 	autoMocker.mock("fn", fn);
+		// 	console.log(fn)
+		// 	expect((fn as jasmine.Spy).calls).toBeDefined();
+		// });
 	});
 
 	describe("withCallFake", () => {
@@ -214,6 +214,7 @@ describe("AutoMocker", () => {
 			try {
 				autoMocker.withThrows(() => {
 				});
+				/* istanbul ignore next */
 				fail('Should have thrown an error');
 			} catch (e) {
 				expect((e as Error).message.includes('not an actual spy')).toBeTrue();
@@ -226,6 +227,7 @@ describe("AutoMocker", () => {
 
 			try {
 				const res = mock.add(2, 3);
+				/* istanbul ignore next */
 				fail(`Should have thrown an error instead of receiving value: ${res}`);
 			} catch (e) {
 				expect((e as Error).message).toBe("Test error");
@@ -393,6 +395,7 @@ describe("AutoMocker", () => {
 		}
 
 		beforeEach(() => {
+			// @ts-ignore
 			methodUnderTest = autoMocker["mockValue"];
 		});
 
@@ -413,6 +416,34 @@ describe("AutoMocker", () => {
 
 		it("should make function a spy", () => {
 			const res = methodUnderTest.call(autoMocker, "testObject", testObject, "func", 0, 1)
+			expect((res as jasmine.Spy).calls).toBeDefined();
+		});
+
+		it("should return the spy if method is a spy", () => {
+			const spy = jasmine.createSpy("func", testObject.func);
+			testObject.func = spy
+			const res = methodUnderTest.call(autoMocker, "test", testObject, "func", 0, 1);
+			expect(res).toEqual(spy);
+		});
+
+		it("should return the object", () => {
+			const res = methodUnderTest.call(autoMocker, "test", testObject, "objVal", 0, 0)
+			expect(res).toEqual(testObject.objVal);
+		});
+
+		it("should return a truncated object", () => {
+			const res = methodUnderTest.call(autoMocker, "test", testObject, "deepObjVal", 0, 1);
+			expect(res).toBeTruthy();
+		});
+
+		it("should return a string", () => {
+			const res = methodUnderTest.call(autoMocker, "test", testObject, "strVal", 0, 1);
+			expect(res).toBeTruthy();
+		});
+
+		it("should return a date", () => {
+			const res = methodUnderTest.call(autoMocker, "test", testObject, "dateVal", 0, 0);
+			expect(typeof res).toEqual("object");
 		})
 	});
 });
