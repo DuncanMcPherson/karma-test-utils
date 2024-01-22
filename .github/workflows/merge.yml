@@ -34,7 +34,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
       - run: npm install
-      - run: npm test
+      - run: npm run cover
       - name: Upload results to CodeCov
         if: always()
         uses: codecov/codecov-action@v3

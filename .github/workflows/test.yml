@@ -18,7 +18,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
       - run: npm install
       - run: npm run test
-      - run: ls
+      - run: npm run cover
         if: always()
       - name: Publish test results
         uses: EnricoMi/publish-unit-test-result-action@v2
