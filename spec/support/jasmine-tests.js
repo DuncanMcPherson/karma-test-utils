@@ -1,16 +1,8 @@
+const Jasmine = require("jasmine");
+const jasmine = new Jasmine();
 const SpecReporter = require('jasmine-reporters').JUnitXmlReporter;
-module.exports = {
-  "spec_dir": "spec",
-  "spec_files": [
-    "**/*[sS]pec.ts"
-  ],
-  "env": {
-    "stopSpecOnExpectationFailure": false,
-    "random": true
-  }
-}
-const reporter = new SpecReporter({savePath: 'test-results'})
-const env = jasmine.getEnv();
-env.addReporter(reporter);
-env.execute();
+const reporter = new SpecReporter({savePath: 'test-results'});
+jasmine.loadConfigFile("spec/support/jasmine-plain.json")
+jasmine.addReporter(reporter);
+jasmine.execute();
 

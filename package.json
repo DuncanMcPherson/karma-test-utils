@@ -1,14 +1,16 @@
 {
   "name": "@ez-budgets/karma-test-utils",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
   "files": [
     "./**/*"
   ],
   "scripts": {
-    "test": "jasmine --config=spec/support/jasmine-tests.js",
-    "posttest": "istanbul cover --include-all-sources spec/support/istanbul.js && istanbul check-coverage",
+    "pretest": "tsc --project tsconfig.spec.json",
+    "test": "node spec/support/jasmine-tests.js",
+    "precover": "tsc --project tsconfig.spec.json",
+    "cover": "istanbul cover spec/support/istanbul.js --exclude dist/*,spec/**/* && istanbul check-coverage",
     "prepare": "husky install",
     "build": "tsc",
     "presetup-package": "npm run build",
@@ -25,17 +27,25 @@
   },
   "homepage": "https://github.com/duncanmcpherson/karma-test-utils#readme",
   "devDependencies": {
-    "@types/jasmine": "^5.1.4",
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.7",
+    "@babel/preset-env": "^7.23.7",
+    "@babel/register": "^7.23.7",
     "@types/ejs": "^3.1.5",
+    "@types/jasmine": "^5.1.4",
+    "@types/lodash": "^4.14.202",
     "ejs": "^3.1.9",
+    "husky": "^8.0.0",
     "istanbul": "^0.4.5",
     "jasmine-reporters": "^2.5.2",
     "jasmine-spec-reporter": "^7.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
-    "husky": "^8.0.0"
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "jasmine": "^5.1.0"
+    "jasmine": "^5.1.0",
+    "lodash": "^4.17.21",
+    "rxjs": "^7.8.1"
   }
 }

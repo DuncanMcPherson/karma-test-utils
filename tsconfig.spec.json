@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"target": "es2016",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"lib": ["ES2016", "DOM"],
+		"allowJs": true,
+		"sourceMap": true,
+		"rootDir": ".",
+		"outDir": "build-test",
+		"strict": false,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"paths": {
+			"@types-local": ["src/@types/index.ts"]
+		}
+	},
+	"include": ["src/**/*.ts", "spec/**/*.spec.ts"],
+	"exclude": [
+		"src/update-version.cjs"
+	],
+}

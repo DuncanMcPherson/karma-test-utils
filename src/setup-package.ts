@@ -13,6 +13,7 @@ function main() {
 	}
 	fs.writeFileSync(path.join(__dirname + "/package.json"), Buffer.from(JSON.stringify(sourceObj, null, 2), "utf-8"));
 	fs.copyFileSync(path.join(__dirname, "..", ".npmignore"), path.join(__dirname, "..", "dist", ".npmignore"));
+	fs.copyFileSync(path.join(__dirname, '..', '.npmrc'), path.join(__dirname, '..', 'dist', '.npmrc'))
 }
 
 main()
