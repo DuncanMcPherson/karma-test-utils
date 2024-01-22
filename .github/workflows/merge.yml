@@ -24,3 +24,19 @@ jobs:
       - run: npm run setup-package
       - run: cd dist
       - run: npm pack && npm publish
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+      - run: npm install
+      - run: npm test
+      - name: Upload results to CodeCov
+        if: always()
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
