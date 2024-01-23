@@ -1,7 +1,3 @@
 export { IMockClassOptions } from "./autoMocker";
-export {
-	readObservableErrorSynchronously,
-	readObservableSynchronouslyAfterAction,
-	readObservableSynchronously,
-	readObservableCompletionSynchronously
-} from './read-observable-synchronously';
+export { readObservableSynchronously, readObservableCompletionSynchronously, readObservableErrorSynchronously, readObservableSynchronouslyAfterAction } from './read-observable-synchronously';
+export { TestSubscriptionCounter } from './test-subscription-counter';
