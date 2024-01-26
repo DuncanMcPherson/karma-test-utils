@@ -5,6 +5,11 @@ import { ObservablePropertyNames } from '@types-local'
 
 type ObservableType<T> = T extends Observable<infer U> ? U : T;
 
+/**
+ * Represents a subject counter that associates a ReplaySubject with a TestSubscriptionCounter.
+ *
+ * @template T The type of values emitted by the ReplaySubject.
+ */
 export interface ISubjectCounter<T> {
 	subject: ReplaySubject<T>,
 	counter: TestSubscriptionCounter<T>

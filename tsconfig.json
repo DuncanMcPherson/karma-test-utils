@@ -18,6 +18,7 @@
   "include": ["src/**/*"],
   "exclude": [
     "**/*.spec.*",
-    "src/update-version.cjs"
+    "src/update-version.cjs",
+    "src/test-emissions-counter.ts"
   ],
 }

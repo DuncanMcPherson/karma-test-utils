@@ -1,5 +1,9 @@
 import { Observable, finalize, Subscriber } from 'rxjs';
 
+/**
+ * Represents a counter for subscriptions to an observable.
+ * @template T - The type of value emitted by the observable.
+ */
 export class TestSubscriptionCounter<T> {
 	private _lifetimeSubscriptionCount: number = 0;
 	private _activeSubscriptionCount: number = 0;

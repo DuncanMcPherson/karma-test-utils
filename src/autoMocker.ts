@@ -1,7 +1,6 @@
 // noinspection JSValidateJSDoc
 
-import isEmpty from "lodash/isEmpty";
-import uniq from "lodash/uniq";
+import {isEmpty, uniq} from "lodash";
 import { Accessor, Constructor } from "@types-local";
 
 /**
