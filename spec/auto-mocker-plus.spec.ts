@@ -1,5 +1,5 @@
 import { AutoMockerPlus, readObservableErrorSynchronously, readObservableSynchronously } from "../src";
-import { Observable, Subject, of } from "rxjs";
+import { Observable, Subject, of, catchError } from "rxjs";
 import { TestEmissionsCounter } from "../src/test-emissions-counter";
 import { result } from "lodash";
 
@@ -209,5 +209,116 @@ describe("AutoMockerPlus", () => {
 			});
 			subject.next('test2');
 		});
-	})
-})
+	});
+
+	describe("withReturnSubjectWithCompletingCountedObservableForObservableProperty", () => {
+		it("should not emit when not initial value passed", () => {
+			const subjectCounter = autoMocker.withReturnSubjectWithCompletingCountedObservableForObservableProperty(mock, "observableProperties$");
+			const resultingPropertyObservable = mock.observableProperties$;
+			const counter = new TestEmissionsCounter(resultingPropertyObservable);
+			counter.emissionsCountingObservable.subscribe();
+			expect(counter.emissions).toEqual(0);
+			subjectCounter.subject.complete();
+			expect(subjectCounter.counter.activeSubscriptionCount).toEqual(0);
+		});
+
+		it("should emit when initial value is passed", () => {
+			const subjectCounter = autoMocker.withReturnSubjectWithCompletingCountedObservableForObservableProperty(mock, "observableProperties$", "test");
+			const counter = new TestEmissionsCounter(mock.observableProperties$)
+			const result = readObservableSynchronously(counter.emissionsCountingObservable);
+            expect(result).toBe('test');
+			expect(subjectCounter.counter.allSubscriptionsFinalized).toEqual(true);
+			expect(counter.emissions).toEqual(1);
+		});
+	});
+
+	describe("withReturnSubjectAsObservable", () => {
+		it('should throw an error when method is not an actual spy', () => {
+			expect(() => autoMocker.withReturnSubjectAsObservable(() => of())).toThrowError();
+		});
+
+		it("should return a subject and mock the method", (done) => {
+			const expected = Math.floor(Math.random() * 1000)
+			const subject = autoMocker.withReturnSubjectAsObservable(mock.testObservableMethod);
+			mock.testObservableMethod().subscribe((val) => {
+				expect(val).toEqual(expected);
+				done();
+			});
+			subject.next(expected);
+		});
+	});
+
+	describe("withReturnSubjectWithErrorAsObservable", () => {
+		it("should throw an error if method is not an actual spy", () => {
+			expect(() => autoMocker.withReturnSubjectWithErrorAsObservable(() => of())).toThrowError();
+		});
+
+		it("should return an errored observable with a default error", () => {
+			autoMocker.withReturnSubjectWithErrorAsObservable(mock.testObservableMethod);
+			mock.testObservableMethod().pipe(
+				catchError((err) => {
+					expect(err.message).toEqual("error");
+					return of();
+				})
+			).subscribe();
+		});
+
+		it("should return an errored observable with specified message", () => {
+			autoMocker.withReturnSubjectWithErrorAsObservable(mock.testObservableMethod, "I failed somehow");
+			mock.testObservableMethod()
+				.pipe(
+					catchError((err) => {
+						expect(err).toEqual("I failed somehow");
+						return of();
+					})
+				).subscribe();
+		});
+	});
+
+	describe("withReturnPromise", () => {
+		it("should throw an error when the method is not an actual spy", () => {
+			const tempMock = new AutoMockerPlusTest();
+			expect(() => autoMocker.withReturnPromise(tempMock.getTestPromise)).toThrowError();
+		});
+
+		it("should resolve a promise with an undefined value", (done) => {
+			autoMocker.withReturnPromise(mock.getTestPromise);
+			mock.getTestPromise().then((val) => {
+				expect(val).toBeUndefined();
+				done();
+			});
+		});
+
+		it("should return a promise with a defined value", (done) => {
+			const expected = Math.floor(Math.random() * 1000);
+			autoMocker.withReturnPromise(mock.getTestPromise, expected);
+			mock.getTestPromise().then((val) => {
+				expect(val).toEqual(expected);
+				done();
+			});
+		});
+	});
+
+	describe("withReturnRejectedPromise", () => {
+		it("should throw an error when method is not an actual spy", () => {
+			const tempMock = new AutoMockerPlusTest();
+			expect(() => autoMocker.withReturnRejectedPromise(tempMock.getTestPromise)).toThrowError();
+		});
+
+		it("should return a rejected promise", (done) => {
+			autoMocker.withReturnRejectedPromise(mock.getTestPromise);
+			mock.getTestPromise().catch((err) => {
+				expect(err).toBeUndefined();
+				done();
+			});
+		});
+
+		it("should return a rejected promise with a specific error", (done) => {
+			autoMocker.withReturnRejectedPromise(mock.getTestPromise, "test error");
+			mock.getTestPromise().catch((err) => {
+				expect(err).toEqual("test error");
+				done();
+			});
+		});
+	});
+});

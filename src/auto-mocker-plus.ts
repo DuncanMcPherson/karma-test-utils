@@ -1,4 +1,4 @@
-import { NEVER, observable, Observable, of, ReplaySubject, startWith, Subject, throwError } from "rxjs";
+import { NEVER, Observable, of, ReplaySubject, startWith, Subject, throwError } from "rxjs";
 import { AutoMocker } from './autoMocker';
 import { TestSubscriptionCounter } from './test-subscription-counter';
 import { ObservablePropertyNames } from '@types-local'
@@ -266,34 +266,6 @@ export class AutoMockerPlus extends AutoMocker {
             return subject;
         }
         this.throwNotASpyError("withReturnSubjectAsObservable", spyName);
-	}
-
-	/**
-	 * Creates a ReplaySubject and sets the return value of a spy function to the observable produced by the subject.
-	 *
-	 * @param {Function} spy - The spy function.
-	 * @param { any} resolveWith - The value to resolve the subject with (optional).
-	 * @param {number} bufferSize - The size of the buffer in the ReplaySubject (default: 1).
-	 * @param {string} spyName - The name of the spy function (optional).
-	 *
-	 * @returns {ReplaySubject} - The created ReplaySubject.
-	 */
-	public withReturnReplaySubjectAsObservable<T>(
-		spy: (...args: any[]) => Observable<T>,
-		resolveWith?: T,
-		bufferSize = 1,
-		spyName?: string,
-	): ReplaySubject<T> {
-		if (this.isSpyLike(spy)) {
-			const subject = new ReplaySubject<T>(bufferSize);
-			if (resolveWith !== undefined) {
-				subject.next(resolveWith);
-			}
-			const observable = subject.asObservable();
-			spy.and.returnValue(observable);
-			return subject;
-		}
-		this.throwNotASpyError(spyName);
 	}
 
 	/**
