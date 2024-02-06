@@ -1,5 +1,5 @@
 import { AutoMocker } from '../src/autoMocker';
-import isEmpty from "lodash/isEmpty";
+import {isEmpty} from "lodash";
 
 class TestEmptyAutoMocker {
 }

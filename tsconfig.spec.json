@@ -18,6 +18,7 @@
 	},
 	"include": ["src/**/*.ts", "spec/**/*.spec.ts"],
 	"exclude": [
-		"src/update-version.cjs"
+		"src/update-version.cjs",
+		"src/setup-package.ts"
 	],
 }
